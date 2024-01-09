@@ -10,8 +10,10 @@
       "import": "./lib/index.js"
     }
   },
+  "directories": [
+    "lib"
+  ],
   "files": [
-    "lib",
     "LICENCE",
     "README",
     "package.json"
