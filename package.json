@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "test": "tap run --disable-coverage --allow-empty-coverage",
-    "build": "rm -r lib && tsc",
+    "build": "rm -rf lib && tsc",
     "format": "prettier --write src"
   },
   "keywords": [],
