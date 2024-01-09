@@ -2,16 +2,18 @@
   "name": "@developbharat/youtubebot",
   "version": "1.0.2",
   "description": "A Robot to use Youtube Services",
-  "main": "dist/cjs/index.js",
-  "module": "dist/mjs/index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js"
     }
   },
+  "directories": [
+    "lib"
+  ],
   "files": [
-    "lib",
     "LICENCE",
     "README",
     "package.json"
