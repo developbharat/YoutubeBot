@@ -1,3 +1,1 @@
-export const Version = (): string => {
-  return '1.0.0';
-};
+export * from './protocols/index.js';
