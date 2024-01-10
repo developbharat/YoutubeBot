@@ -148,7 +148,7 @@ export class AboutChannelProtocol implements IBaseProtocol<IAboutChannelProtocol
     const metadata = wrapper.aboutChannelRenderer.metadata.aboutChannelViewModel;
 
     const links: Record<string, string> = {};
-    metadata.links.forEach((link) => {
+    metadata.links?.forEach((link) => {
       const title = link.channelExternalLinkViewModel.title.content;
       const href = link.channelExternalLinkViewModel.link.content;
       if (!title || !href) return;
@@ -164,7 +164,7 @@ export class AboutChannelProtocol implements IBaseProtocol<IAboutChannelProtocol
       totalViewsCount: BigInt(metadata.viewCountText.replace(RegExp('[^0-9.]', 'g'), '')),
       channelCreatedDate: new Date(Date.parse(metadata.joinedDateText.content.replace('Joined ', ''))),
       channelLocation: metadata.country,
-      links: links
+      links: links || []
     };
   }
 
@@ -175,9 +175,9 @@ export class AboutChannelProtocol implements IBaseProtocol<IAboutChannelProtocol
       tvBanner: data.header.c4TabbedHeaderRenderer.tvBanner.thumbnails.slice(-1).shift()!,
       mobileBanner: data.header.c4TabbedHeaderRenderer.mobileBanner.thumbnails.slice(-1).shift()!,
       isVerifiedBadge:
-        data.header.c4TabbedHeaderRenderer.badges.findIndex(
+        data.header.c4TabbedHeaderRenderer.badges?.findIndex(
           (badge) => badge.metadataBadgeRenderer.tooltip === 'Verified'
-        ) !== -1,
+        ) !== -1 || false,
       metadata: {
         title: data.metadata.channelMetadataRenderer.title,
         tagline: data.header.c4TabbedHeaderRenderer.tagline.channelTaglineRenderer.content,
@@ -186,7 +186,7 @@ export class AboutChannelProtocol implements IBaseProtocol<IAboutChannelProtocol
         channelId: data.metadata.channelMetadataRenderer.externalId,
         canonicalUrl: data.microformat.microformatDataRenderer.urlCanonical,
         keywords: data.metadata.channelMetadataRenderer.keywords.split(' '),
-        tags: data.microformat.microformatDataRenderer.tags,
+        tags: data.microformat.microformatDataRenderer.tags || [],
         vanityChannelUrl: data.metadata.channelMetadataRenderer.vanityChannelUrl,
         isFamilySafe: data.metadata.channelMetadataRenderer.isFamilySafe,
         isUnlisted: data.microformat.microformatDataRenderer.unlisted,
@@ -214,14 +214,14 @@ export class AboutChannelProtocol implements IBaseProtocol<IAboutChannelProtocol
 }
 
 // const main = async () => {
-//   const instance = new AboutChannelProtocol({ channelId: 'UCtEohEK3RUMnYS_7k70i0tg' })
-//   const { data } = await instance.init()
-//   const fs = require('fs')
+//   const instance = new AboutChannelProtocol({ channelId: 'UCMjaue7QI8Y3Ipj0oCxXipw' });
+//   const { data } = await instance.init();
+//   // const fs = require('fs');
 //   fs.writeFileSync(
 //     'channel-data.json',
 //     JSON.stringify(data, (_k, value) => (typeof value === 'bigint' ? value.toString() : value), 2),
-//     { encoding: 'utf8' },
-//   )
-// }
+//     { encoding: 'utf8' }
+//   );
+// };
 
-// main()
+// main();

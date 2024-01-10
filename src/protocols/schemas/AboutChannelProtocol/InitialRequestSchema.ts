@@ -12,17 +12,19 @@ export const InitialRequestSchema = z.object({
       banner: z.object({
         thumbnails: z.array(z.object({ url: z.string(), width: z.number(), height: z.number() }))
       }),
-      badges: z.array(
-        z.object({
-          metadataBadgeRenderer: z.object({
-            icon: z.object({ iconType: z.string() }),
-            style: z.string(),
-            tooltip: z.string(),
-            trackingParams: z.string(),
-            accessibilityData: z.object({ label: z.string() })
+      badges: z
+        .array(
+          z.object({
+            metadataBadgeRenderer: z.object({
+              icon: z.object({ iconType: z.string() }),
+              style: z.string(),
+              tooltip: z.string(),
+              trackingParams: z.string(),
+              accessibilityData: z.object({ label: z.string() })
+            })
           })
-        })
-      ),
+        )
+        .optional(),
       subscriberCountText: z.object({
         accessibility: z.object({
           accessibilityData: z.object({ label: z.string() })
@@ -75,7 +77,6 @@ export const InitialRequestSchema = z.object({
       title: z.string(),
       description: z.string(),
       rssUrl: z.string(),
-      channelConversionUrl: z.string(),
       externalId: z.string(),
       keywords: z.string(),
       ownerUrls: z.array(z.string()),
@@ -117,7 +118,7 @@ export const InitialRequestSchema = z.object({
       noindex: z.boolean(),
       unlisted: z.boolean(),
       familySafe: z.boolean(),
-      tags: z.array(z.string()),
+      tags: z.array(z.string()).optional(),
       availableCountries: z.array(z.string().length(2)),
       linkAlternates: z.array(z.object({ hrefUrl: z.string() }))
     })

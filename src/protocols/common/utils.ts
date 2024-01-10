@@ -115,9 +115,11 @@ export const doPost = async (url: string, payload: object, reqOpts: RequestOptio
 
 // Convert Subscribers to number
 export const subsToBigInt = (count: string): bigint => {
-  count = count.toLowerCase().replace(' subscribers', '').trim(); // Replace subscribers with ''
   const num = BigInt(count.replace(RegExp('[^0-9.]', 'g'), ''));
-  switch (count.slice(-1)) {
+  const unit = count.replace(' subscribers', '').replace(RegExp('[0-9.]', 'g'), '').trim().toLowerCase();
+  switch (unit) {
+    case '':
+      return num;
     case 'k':
       return num * BigInt(1000);
     case 'm':
@@ -127,7 +129,7 @@ export const subsToBigInt = (count: string): bigint => {
     case 't':
       return num * BigInt(1000000000000);
     default:
-      console.error(`unknown unit ${count[-1]} found in num: ${count}`);
-      return BigInt(0);
+      console.error(`unknown unit ${unit} found in num: ${count}`);
+      return BigInt(num);
   }
 };

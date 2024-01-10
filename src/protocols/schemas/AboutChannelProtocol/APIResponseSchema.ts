@@ -32,10 +32,6 @@ export const APIResponseSchema = z.object({
                     styleRuns: z.array(z.object({ startIndex: z.number(), length: z.number() }))
                   }),
                   country: z.string(),
-                  customLinksLabel: z.object({
-                    content: z.string(),
-                    styleRuns: z.array(z.object({ startIndex: z.number(), length: z.number() }))
-                  }),
                   subscriberCountText: z.string(),
                   viewCountText: z.string(),
                   joinedDateText: z.object({
@@ -63,129 +59,91 @@ export const APIResponseSchema = z.object({
                     })
                   }),
                   videoCountText: z.string(),
-                  signInForBusinessEmail: z.object({
-                    content: z.string(),
-                    commandRuns: z.array(
-                      z.object({
-                        startIndex: z.number(),
-                        length: z.number(),
-                        onTap: z.object({
-                          innertubeCommand: z.object({
-                            clickTrackingParams: z.string(),
-                            commandMetadata: z.object({
-                              webCommandMetadata: z.object({
-                                url: z.string(),
-                                webPageType: z.string(),
-                                rootVe: z.number()
-                              })
-                            }),
-                            signInEndpoint: z.object({
-                              nextEndpoint: z.object({
-                                clickTrackingParams: z.string(),
-                                commandMetadata: z.object({
-                                  webCommandMetadata: z.object({
-                                    url: z.string(),
-                                    webPageType: z.string(),
-                                    rootVe: z.number(),
-                                    apiUrl: z.string()
+                  links: z
+                    .array(
+                      z.union([
+                        z.object({
+                          channelExternalLinkViewModel: z.object({
+                            title: z.object({ content: z.string() }),
+                            link: z.object({
+                              content: z.string(),
+                              commandRuns: z.array(
+                                z.object({
+                                  startIndex: z.number(),
+                                  length: z.number(),
+                                  onTap: z.object({
+                                    innertubeCommand: z.object({
+                                      clickTrackingParams: z.string(),
+                                      commandMetadata: z.object({
+                                        webCommandMetadata: z.object({
+                                          url: z.string(),
+                                          webPageType: z.string(),
+                                          rootVe: z.number()
+                                        })
+                                      }),
+                                      urlEndpoint: z.object({
+                                        url: z.string(),
+                                        nofollow: z.boolean()
+                                      })
+                                    })
                                   })
-                                }),
-                                browseEndpoint: z.object({
-                                  browseId: z.string(),
-                                  params: z.string(),
-                                  canonicalBaseUrl: z.string()
                                 })
-                              })
+                              )
+                            }),
+                            favicon: z.object({
+                              sources: z.array(
+                                z.object({
+                                  url: z.string(),
+                                  width: z.number(),
+                                  height: z.number()
+                                })
+                              )
+                            })
+                          })
+                        }),
+                        z.object({
+                          channelExternalLinkViewModel: z.object({
+                            title: z.object({ content: z.string() }),
+                            link: z.object({
+                              content: z.string(),
+                              commandRuns: z.array(
+                                z.object({
+                                  startIndex: z.number(),
+                                  length: z.number(),
+                                  onTap: z.object({
+                                    innertubeCommand: z.object({
+                                      clickTrackingParams: z.string(),
+                                      commandMetadata: z.object({
+                                        webCommandMetadata: z.object({
+                                          url: z.string(),
+                                          webPageType: z.string(),
+                                          rootVe: z.number()
+                                        })
+                                      }),
+                                      urlEndpoint: z.object({
+                                        url: z.string(),
+                                        target: z.string(),
+                                        nofollow: z.boolean()
+                                      })
+                                    })
+                                  })
+                                })
+                              )
+                            }),
+                            favicon: z.object({
+                              sources: z.array(
+                                z.object({
+                                  url: z.string(),
+                                  width: z.number(),
+                                  height: z.number()
+                                })
+                              )
                             })
                           })
                         })
-                      })
-                    ),
-                    styleRuns: z.array(z.object({ startIndex: z.number(), length: z.number() }))
-                  }),
-                  links: z.array(
-                    z.union([
-                      z.object({
-                        channelExternalLinkViewModel: z.object({
-                          title: z.object({ content: z.string() }),
-                          link: z.object({
-                            content: z.string(),
-                            commandRuns: z.array(
-                              z.object({
-                                startIndex: z.number(),
-                                length: z.number(),
-                                onTap: z.object({
-                                  innertubeCommand: z.object({
-                                    clickTrackingParams: z.string(),
-                                    commandMetadata: z.object({
-                                      webCommandMetadata: z.object({
-                                        url: z.string(),
-                                        webPageType: z.string(),
-                                        rootVe: z.number()
-                                      })
-                                    }),
-                                    urlEndpoint: z.object({
-                                      url: z.string(),
-                                      nofollow: z.boolean()
-                                    })
-                                  })
-                                })
-                              })
-                            )
-                          }),
-                          favicon: z.object({
-                            sources: z.array(
-                              z.object({
-                                url: z.string(),
-                                width: z.number(),
-                                height: z.number()
-                              })
-                            )
-                          })
-                        })
-                      }),
-                      z.object({
-                        channelExternalLinkViewModel: z.object({
-                          title: z.object({ content: z.string() }),
-                          link: z.object({
-                            content: z.string(),
-                            commandRuns: z.array(
-                              z.object({
-                                startIndex: z.number(),
-                                length: z.number(),
-                                onTap: z.object({
-                                  innertubeCommand: z.object({
-                                    clickTrackingParams: z.string(),
-                                    commandMetadata: z.object({
-                                      webCommandMetadata: z.object({
-                                        url: z.string(),
-                                        webPageType: z.string(),
-                                        rootVe: z.number()
-                                      })
-                                    }),
-                                    urlEndpoint: z.object({
-                                      url: z.string(),
-                                      target: z.string(),
-                                      nofollow: z.boolean()
-                                    })
-                                  })
-                                })
-                              })
-                            )
-                          }),
-                          favicon: z.object({
-                            sources: z.array(
-                              z.object({
-                                url: z.string(),
-                                width: z.number(),
-                                height: z.number()
-                              })
-                            )
-                          })
-                        })
-                      })
-                    ])
-                  )
+                      ])
+                    )
+                    .optional()
                 })
               }),
               shareChannel: z.object({
