@@ -3,19 +3,15 @@
   "version": "1.0.5",
   "description": "A Robot to use Youtube Services",
   "main": "lib/index.js",
-  "module": "lib/index.js",
   "type": "module",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "import": "./lib/index.js",
       "types": "./lib/index.d.ts"
     }
   },
-  "directories": [
-    "lib"
-  ],
   "files": [
+    "lib/*",
     "LICENCE",
     "README",
     "package.json"
