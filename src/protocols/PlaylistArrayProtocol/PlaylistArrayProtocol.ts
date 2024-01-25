@@ -1,15 +1,15 @@
 import miniget from 'miniget';
-import { IBaseProtocol, IParseResult } from '../common/IBaseProtocol.js';
-import { between, doPost, jsonAfter } from '../common/utils.js';
-import { IInitialRequestSchema, isInitialRequest } from '../schemas/PlaylistArrayProtocol/InitialRequestSchema.js';
+import { IBaseProtocol, IParseResult } from '../../common/IBaseProtocol.js';
+import { between, doPost, jsonAfter } from '../../common/utils.js';
+import { IInitialRequestSchema, isInitialRequest } from '../../schemas/PlaylistArrayProtocol/InitialRequestSchema.js';
 import {
   IPlaylistArrayAPIResponse,
   isPlaylistArrayAPIResponse
-} from '../schemas/PlaylistArrayProtocol/PlaylistArrayAPIResponse.js';
-import { IPlaylistItemSchema, isPlaylistItem } from '../schemas/PlaylistArrayProtocol/PlaylistItemSchema.js';
-import { IContinuationItemSchema, isContinuationItem } from '../schemas/common/ContinuationItemSchema.js';
-import { IThumbnailItem } from '../schemas/common/Thumbnail.js';
-import { IInitialRequestTabSchema } from '../schemas/PlaylistArrayProtocol/InitialRequestTabSchema.js';
+} from '../../schemas/PlaylistArrayProtocol/PlaylistArrayAPIResponse.js';
+import { IPlaylistItemSchema, isPlaylistItem } from '../../schemas/PlaylistArrayProtocol/PlaylistItemSchema.js';
+import { IContinuationItemSchema, isContinuationItem } from '../../schemas/common/ContinuationItemSchema.js';
+import { IThumbnailItem } from '../../schemas/common/Thumbnail.js';
+import { IInitialRequestTabSchema } from '../../schemas/PlaylistArrayProtocol/InitialRequestTabSchema.js';
 
 export interface IPlaylistArrayProtocolData {
   playlistId: string;

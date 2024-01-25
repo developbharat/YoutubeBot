@@ -1,6 +1,6 @@
 import t from 'tap';
 import { HttpRequestMaker } from '../HttpRequestMaker.js';
-import { TestData } from '../../../__tests__/TestData.js';
+import { TestData } from '../../__tests__/TestData.js';
 
 t.test('is instanceable', (t) => {
   const instance = new HttpRequestMaker();
@@ -40,7 +40,7 @@ t.test('makeHTMLRequest succeeds with data', async (t) => {
   const res = await instance.makeHTMLRequest({ url: TestData.aboutChannel.metadata.canonicalUrl });
   t.ok(res.success);
   t.ok(typeof res.data === 'string');
-  t.ok(res.data.includes('<html>'));
-  t.ok(res.error === undefined);
+  t.ok(res.data.includes('</html>'));
+  t.ok(res.error === null);
   t.end();
 });

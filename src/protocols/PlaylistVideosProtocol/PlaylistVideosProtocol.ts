@@ -1,11 +1,13 @@
 import fs from 'fs';
 import miniget from 'miniget';
-import { IBaseProtocol, IParseResult } from '../common/IBaseProtocol.js';
-import { IThumbnailItem } from '../schemas/common/Thumbnail.js';
-import { jsonAfter, between, doPost, subsToBigInt } from '../common/utils.js';
-import { InitialRequestSchema, IInitialRequestSchema } from '../schemas/PlaylistVideosProtocol/InitialRequestSchema.js';
-import { IContinuationItemSchema, isContinuationItem } from '../schemas/common/ContinuationItemSchema.js';
-import { IPlaylistVideoItemSchema } from '../schemas/PlaylistVideosProtocol/PlaylistVideoItemSchema.js';
+import { IBaseProtocol, IParseResult } from '../../common/IBaseProtocol.js';
+import { between, jsonAfter } from '../../common/utils.js';
+import {
+  IInitialRequestSchema,
+  InitialRequestSchema
+} from '../../schemas/PlaylistVideosProtocol/InitialRequestSchema.js';
+import { IContinuationItemSchema, isContinuationItem } from '../../schemas/common/ContinuationItemSchema.js';
+import { IThumbnailItem } from '../../schemas/common/Thumbnail.js';
 
 export interface IPlaylistVideo {
   title: string;
@@ -90,6 +92,7 @@ export class PlaylistVideosProtocol implements IBaseProtocol<IPlaylistVideosData
   private async parseHomeHTMLToData(): Promise<void> {
     const json = jsonAfter(this.html, 'var ytInitialData = ') || jsonAfter(this.html, 'window["ytInitialData"] = ');
     this.apiKey = between(this.html, 'INNERTUBE_API_KEY":"', '"') || between(this.html, 'innertubeApiKey":"', '"');
+    console.log({ apiKey: this.apiKey });
     const clientVersion =
       between(this.html, 'INNERTUBE_CONTEXT_CLIENT_VERSION":"', '"') ||
       between(this.html, 'innertube_context_client_version":"', '"');
@@ -133,13 +136,13 @@ export class PlaylistVideosProtocol implements IBaseProtocol<IPlaylistVideosData
     this.data = this.initReqJsonToData(data);
   }
 
-  private initReqJsonToData(data: IInitialRequestSchema): IPlaylistVideosData {
-    const contentsWrapper =
-      data.contents.twoColumnBrowseResultsRenderer.tabs.shift()!.tabRenderer.content.sectionListRenderer.contents;
-
-    const videosList: IPlaylistVideoItemSchema[] | undefined = contentsWrapper.find((item) =>
-      isContinuationItem(item)
-    ) as any;
+  private initReqJsonToData(_data: IInitialRequestSchema): IPlaylistVideosData {
+    // const contentsWrapper =
+    //   data.contents.twoColumnBrowseResultsRenderer.tabs.shift()!.tabRenderer.content.sectionListRenderer.contents;
+    // const videosList: IPlaylistVideoItemSchema[] | undefined = contentsWrapper.find((item) =>
+    //   isContinuationItem(item)
+    // ) as any;
+    throw new Error('method not implemented.');
   }
 
   public hasNext(): Boolean {

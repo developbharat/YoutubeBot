@@ -1,5 +1,4 @@
-import { IChannelAboutDetails, IChannelMetadata } from '../protocols/DataClasses/ChannelAboutDetails.js';
-import { IThumbnail } from '../protocols/DataClasses/Thumbnail.js';
+import { IChannelAboutCombinedDetails, IChannelMetadata, IThumbnail } from '../DataClasses/index.js';
 import * as aboutChannelJson from './json/aboutChannel.js';
 
 const thumbnail: IThumbnail = {
@@ -23,7 +22,7 @@ const metadata: IChannelMetadata = {
   vanityChannelUrl: 'https://youtube.com/@tseries'
 };
 
-const aboutChannel: IChannelAboutDetails = {
+const aboutChannel: IChannelAboutCombinedDetails = {
   avatar: thumbnail,
   banner: thumbnail,
   mobileBanner: thumbnail,
@@ -34,11 +33,11 @@ const aboutChannel: IChannelAboutDetails = {
   links: {
     Facebook: 'https://facebook.com/example'
   },
-  subscribersCount: 256000000n,
+  subscribersCount: '256000000',
   subscribersCountText: '256 million subscribers',
-  totalViewsCount: 242807098872n,
+  totalViewsCount: '242807098872',
   totalViewsCountText: '242,807,098,872 views',
-  videosCount: 20071n,
+  videosCount: '20071',
   videosCountText: '20,071 videos',
   metadata: metadata
 };

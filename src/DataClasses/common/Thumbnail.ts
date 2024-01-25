@@ -3,6 +3,9 @@ import { DataClass } from './IDataClass.js';
 export type IThumbnail = Omit<Thumbnail, keyof DataClass>;
 
 export class Thumbnail extends DataClass {
+  /**
+   * Thumbnail URL
+   */
   public readonly url: string;
   public readonly width: number;
   public readonly height: number;
@@ -14,13 +17,14 @@ export class Thumbnail extends DataClass {
     this.height = options.height;
   }
 
-  static override isValid(data: any): boolean {
+  isValid(): boolean {
     return (
-      typeof data === 'object' &&
-      !Array.isArray(data) &&
-      typeof data['url'] === 'string' &&
-      typeof data['width'] === 'number' &&
-      typeof data['height'] === 'number'
+      typeof this.url === 'string' &&
+      typeof this.width === 'number' &&
+      typeof this.height === 'number' &&
+      !!this.url &&
+      !!this.width &&
+      !!this.height
     );
   }
 
