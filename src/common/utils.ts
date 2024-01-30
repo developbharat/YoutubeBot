@@ -157,6 +157,7 @@ export function findKeyInObject<TResult>(source: Record<string, any>, keyToFind:
   return null;
 }
 
+
 export const extractJSONFromHTML = (html: string): { json: string; apiKey: string; clientVersion: string } => {
   const json = jsonAfter(html, 'var ytInitialData = ') || jsonAfter(html, 'window["ytInitialData"] = ');
   const apiKey = between(html, 'INNERTUBE_API_KEY":"', '"') || between(html, 'innertubeApiKey":"', '"');

@@ -1,5 +1,5 @@
 import z from 'zod';
-import { ThumbnailItemSchema } from '../common/Thumbnail.js';
+import { ThumbnailItemSchema } from '../common/index.js';
 
 export const PlaylistItemSchema = z.object({
   gridPlaylistRenderer: z.object({
@@ -21,8 +21,3 @@ export const PlaylistItemSchema = z.object({
 });
 
 export type IPlaylistItemSchema = z.infer<typeof PlaylistItemSchema>;
-
-export const isPlaylistItem = (data: any): boolean => {
-  const parsed = PlaylistItemSchema.safeParse(data);
-  return parsed.success;
-};

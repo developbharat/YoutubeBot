@@ -9,8 +9,8 @@ import {
 } from '../schemas/ChannelDetails/index.js';
 import { IDataParser, IResult } from './IDataParser.js';
 
-class _AboutChannelParser implements IDataParser<WebpageDetails, APIDetails> {
-  async parseHtmlData(json: string): Promise<IResult<WebpageDetails>> {
+class _AboutChannelParser implements IDataParser<WebpageDetails, APIDetails, null, null> {
+  async parseHtmlData(json: string): Promise<IResult<WebpageDetails, null>> {
     const data = JSON.parse(json) as IWebpageJsonSchema;
     const parsed = WebpageJsonSchema.safeParse(data);
     if (!parsed.success) {
@@ -44,9 +44,9 @@ class _AboutChannelParser implements IDataParser<WebpageDetails, APIDetails> {
 
     if (!about.isValid()) return { success: false, error: new Error('Invalid data found in webpage details.') };
 
-    return { success: true, data: about };
+    return { success: true, data: about, extras: null };
   }
-  async parseAPIData(json: string): Promise<IResult<APIDetails>> {
+  async parseAPIData(json: string): Promise<IResult<APIDetails, null>> {
     const data = JSON.parse(json) as IAPIJsonSchema;
     const parsed = APIJsonSchema.safeParse(data);
     if (!parsed.success) {
@@ -54,7 +54,7 @@ class _AboutChannelParser implements IDataParser<WebpageDetails, APIDetails> {
     }
 
     const metadata = findKeyInObject<IMetadataSchema>(data, 'aboutChannelViewModel');
-    if (!metadata) return { success: false, error: new Error('Unable to find aboutChannelViewModel in api JSON') };
+    if (!metadata) return { success: false, error: new Error(`aboutChannelViewModel not found in JSON: ${json}`) };
 
     const links: Record<string, string> = {};
     metadata.links?.forEach((link) => {
@@ -78,7 +78,7 @@ class _AboutChannelParser implements IDataParser<WebpageDetails, APIDetails> {
 
     if (!about.isValid()) return { success: false, error: new Error('Invalid data found in api details.') };
 
-    return { success: true, data: about };
+    return { success: true, data: about, extras: null };
   }
 }
 
