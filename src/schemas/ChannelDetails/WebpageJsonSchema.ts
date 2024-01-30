@@ -1,7 +1,7 @@
 import z from 'zod';
 import { ContinuationItemSchema } from '../common/ContinuationItemSchema.js';
 
-export const InitialRequestSchema = z.object({
+export const WebpageJsonSchema = z.object({
   header: z.object({
     c4TabbedHeaderRenderer: z.object({
       channelId: z.string(),
@@ -125,4 +125,4 @@ export const InitialRequestSchema = z.object({
   })
 });
 
-export type IInitialRequestSchema = z.infer<typeof InitialRequestSchema>;
+export type IWebpageJsonSchema = z.infer<typeof WebpageJsonSchema>;

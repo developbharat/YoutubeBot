@@ -1,5 +1,4 @@
 {
-  "files": ["src/index.ts"],
   "compilerOptions": {
     "module": "NodeNext",
     "outDir": "lib",

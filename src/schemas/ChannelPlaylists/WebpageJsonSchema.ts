@@ -1,8 +1,8 @@
 import z from 'zod';
-import { PlaylistItemSchema } from './PlaylistItemSchema.js';
-import { ContinuationItemSchema } from '../common/ContinuationItemSchema.js';
+import { ContinuationItemSchema } from '../common/index.js';
+import { PlaylistItemSchema } from './common.js';
 
-export const InitialRequestTabSchema = z.object({
+export const TabDataSchema = z.object({
   tabRenderer: z.object({
     title: z.string(),
     selected: z.boolean(),
@@ -27,9 +27,13 @@ export const InitialRequestTabSchema = z.object({
   })
 });
 
-export type IInitialRequestTabSchema = z.infer<typeof InitialRequestTabSchema>;
+export const WebpageJsonSchema = z.object({
+  contents: z.object({
+    twoColumnBrowseResultsRenderer: z.object({
+      tabs: z.array(z.union([TabDataSchema, z.any()]))
+    })
+  })
+});
 
-export const isInitialRequestTab = (data: any): boolean => {
-  const parsed = InitialRequestTabSchema.safeParse(data);
-  return parsed.success;
-};
+export type IWebpageJsonSchema = z.infer<typeof WebpageJsonSchema>;
+export type ITabDataSchema = z.infer<typeof TabDataSchema>;

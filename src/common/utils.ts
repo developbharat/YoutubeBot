@@ -139,3 +139,31 @@ export const subsToBigInt = (count: string): bigint => {
           return whole;
   }
 };
+
+export function findKeyInObject<TResult>(source: Record<string, any>, keyToFind: string): TResult | null {
+  // Return value if key is found.
+  if (source.hasOwnProperty(keyToFind)) return source[keyToFind] as TResult;
+
+  // Traverse all keys in object to recursively find key.
+  for (const key in source) {
+    // Skip traversal for non object values
+    if (typeof source[key] !== 'object') continue;
+
+    const value = findKeyInObject(source[key], keyToFind);
+    if (value !== null) return value as TResult;
+  }
+
+  // Return null if not found.
+  return null;
+}
+
+
+export const extractJSONFromHTML = (html: string): { json: string; apiKey: string; clientVersion: string } => {
+  const json = jsonAfter(html, 'var ytInitialData = ') || jsonAfter(html, 'window["ytInitialData"] = ');
+  const apiKey = between(html, 'INNERTUBE_API_KEY":"', '"') || between(html, 'innertubeApiKey":"', '"');
+  const clientVersion =
+    between(html, 'INNERTUBE_CONTEXT_CLIENT_VERSION":"', '"') ||
+    between(html, 'innertube_context_client_version":"', '"');
+
+  return { json: JSON.stringify(json), apiKey, clientVersion };
+};
