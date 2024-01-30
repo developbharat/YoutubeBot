@@ -1,5 +1,5 @@
 import { APIDetails, WebpageDetails } from '../DataClasses/ChannelAboutDetails/index.js';
-import { findKeyInObject, subsToBigInt } from '../common/utils.js';
+import { findKeyInObject, unitToDigits } from '../common/utils.js';
 import {
   APIJsonSchema,
   IAPIJsonSchema,
@@ -66,7 +66,7 @@ class _AboutChannelParser implements IDataParser<WebpageDetails, APIDetails, nul
 
     const about = new APIDetails({
       subscribersCountText: metadata.subscriberCountText,
-      subscribersCount: subsToBigInt(metadata.subscriberCountText).toString(),
+      subscribersCount: unitToDigits(metadata.subscriberCountText.toLowerCase().replace('subscribers', '')).toString(),
       videosCountText: metadata.videoCountText,
       videosCount: metadata.videoCountText.replace(RegExp('[^0-9.]', 'g'), ''),
       totalViewsCountText: metadata.viewCountText,

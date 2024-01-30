@@ -116,29 +116,29 @@ export const doPost = async (url: string, payload: object, reqOpts: RequestOptio
   return await req.text();
 };
 
-// Convert Subscribers to number
-export const subsToBigInt = (count: string): bigint => {
-  const num = String(count.replace(RegExp('[^0-9.]', 'g'), '')).split(".");
+export const unitToDigits = (count: string): bigint => {
+  const num = String(count.replace(RegExp('[^0-9.]', 'g'), '')).split('.');
   const whole = BigInt(num[0]!);
-  const part = (num.length == 2 ? num[1]: "0") + "0000000000000000";
+  const part = (num.length == 2 ? num[1] : '0') + '0000000000000000';
 
-  const unit = count.replace(' subscribers', '').replace(RegExp('[0-9.]', 'g'), '').trim().toLowerCase();
+  const unit = count.replace(RegExp('[0-9.]', 'g'), '').trim().toLowerCase();
   switch (unit) {
-      case '':
-          return whole;
-      case 'k':
-          return  (whole * 1000n) + BigInt(part.slice(0, 3));
-      case 'm':
-          return  (whole * 1000000n) + BigInt(part.slice(0, 6));
-      case 'b':
-          return (whole * 1000000000n) + BigInt(part.slice(0, 9));
-      case 't':
-          return  (whole * 1000000000000n) + BigInt(part.slice(0, 12));
-      default:
-          console.error(`unknown unit ${unit} found in num: ${count}`);
-          return whole;
+    case '':
+      return whole;
+    case 'k':
+      return whole * 1000n + BigInt(part.slice(0, 3));
+    case 'm':
+      return whole * 1000000n + BigInt(part.slice(0, 6));
+    case 'b':
+      return whole * 1000000000n + BigInt(part.slice(0, 9));
+    case 't':
+      return whole * 1000000000000n + BigInt(part.slice(0, 12));
+    default:
+      console.error(`unknown unit ${unit} found in num: ${count}`);
+      return whole;
   }
 };
+
 
 export function findKeyInObject<TResult>(source: Record<string, any>, keyToFind: string): TResult | null {
   // Return value if key is found.
