@@ -1,6 +1,6 @@
 {
   "name": "@developbharat/youtubebot",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A Robot to use Youtube Services",
   "main": "lib/index.js",
   "type": "module",
